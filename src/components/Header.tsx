@@ -7,13 +7,10 @@ import {
   ArrowRight,
   Menu,
   X,
-  ExternalLink,
   Briefcase,
   Users,
   ShieldCheck,
-  Cpu,
   Calculator,
-  Calendar,
   Lock,
   Sun,
   Moon,
@@ -29,6 +26,8 @@ import {
   Sparkles,
   Eye,
   CheckCircle2,
+  FileCheck2,
+  Compass,
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -47,13 +46,14 @@ export const Header: React.FC = () => {
   // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
       if (
         servicesRef.current &&
-        !servicesRef.current.contains(event.target as Node) &&
+        !servicesRef.current.contains(target) &&
         talentRef.current &&
-        !talentRef.current.contains(event.target as Node) &&
+        !talentRef.current.contains(target) &&
         companyRef.current &&
-        !companyRef.current.contains(event.target as Node)
+        !companyRef.current.contains(target)
       ) {
         setServicesOpen(false);
         setTalentOpen(false);
@@ -77,7 +77,7 @@ export const Header: React.FC = () => {
     currentPath.startsWith('/industries') ||
     currentPath.startsWith('/case-studies') ||
     currentPath.startsWith('/pricing') ||
-    currentPath.startsWith('/process') ||
+    currentPath.startsWith('/how-we-deliver') ||
     currentPath.startsWith('/estimate') ||
     currentPath.startsWith('/book-a-call');
 
@@ -90,73 +90,80 @@ export const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-[#0E1330]/95 backdrop-blur-md border-b border-white/10 transition-colors duration-200">
-      {/* Top Utility Bar */}
-      <div className="hidden lg:flex items-center justify-between px-6 xl:px-8 py-2 bg-[#080B1D] text-xs text-slate-400 border-b border-white/5">
-        <div className="flex items-center gap-6">
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#22D3D8] animate-pulse"></span>
-            <span className="font-mono text-slate-300">Enterprise Engineering &amp; Vetted Talent Ecosystem</span>
-          </span>
-          <span className="text-slate-600">|</span>
-          <span className="flex items-center gap-1.5 text-slate-400">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span>SOC 2 Type II Certified &bull; 14-Day Risk-Free Trial</span>
-          </span>
-        </div>
+      {/* Top Utility Ribbon - Expanded full container width */}
+      <div className="hidden lg:block border-b border-white/5 bg-[#080B1D]/80">
+        <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-2 flex items-center justify-between text-xs text-slate-400">
+          <div className="flex items-center gap-6">
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#22D3D8] animate-pulse"></span>
+              <span className="font-mono text-slate-300 font-medium">Enterprise Engineering &bull; Vetted Talent Ecosystem</span>
+            </span>
+            <span className="text-slate-600 hidden xl:inline">|</span>
+            <span className="hidden xl:flex items-center gap-1.5 text-slate-400">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>SOC 2 Type II Certified &bull; 14-Day Risk-Free Trial Guarantee</span>
+            </span>
+          </div>
 
-        <div className="flex items-center gap-5">
-          <button
-            onClick={() => navigate('/estimate')}
-            className="flex items-center gap-1.5 text-slate-300 hover:text-[#22D3D8] transition-colors"
-          >
-            <Calculator className="w-3.5 h-3.5 text-[#22D3D8]" />
-            <span>Interactive Estimator</span>
-          </button>
-          <span className="text-slate-700">•</span>
-          <button
-            onClick={() => navigate('/application-status')}
-            className="flex items-center gap-1.5 text-slate-300 hover:text-[#FFB020] transition-colors"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFB020]"></span>
-            <span>Application Status Tracker</span>
-          </button>
-          <span className="text-slate-700">•</span>
-          <button
-            onClick={() => navigate('/portal/client')}
-            className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors"
-          >
-            <Lock className="w-3 h-3 text-[#22D3D8]" />
-            <span>Client Portal</span>
-          </button>
-          <button
-            onClick={() => navigate('/portal/team')}
-            className="flex items-center gap-1 text-slate-400 hover:text-[#FFB020] transition-colors"
-          >
-            <Lock className="w-3 h-3 text-[#FFB020]" />
-            <span>Team Portal</span>
-          </button>
+          <div className="flex items-center gap-5 font-mono text-[11px]">
+            <button
+              onClick={() => navigate('/estimate')}
+              className="flex items-center gap-1.5 text-slate-300 hover:text-[#22D3D8] transition-colors"
+            >
+              <Calculator className="w-3.5 h-3.5 text-[#22D3D8]" />
+              <span>Project Estimator</span>
+            </button>
+            <span className="text-slate-700">•</span>
+            <button
+              onClick={() => navigate('/application-status')}
+              className="flex items-center gap-1.5 text-slate-300 hover:text-[#FFB020] transition-colors"
+            >
+              <FileCheck2 className="w-3.5 h-3.5 text-[#FFB020]" />
+              <span>Application Tracker</span>
+            </button>
+            <span className="text-slate-700">•</span>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate('/portal/client')}
+                className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors"
+              >
+                <Lock className="w-3 h-3 text-[#22D3D8]" />
+                <span>Client Portal</span>
+              </button>
+              <span className="text-slate-700">/</span>
+              <button
+                onClick={() => navigate('/portal/team')}
+                className="flex items-center gap-1 text-slate-400 hover:text-[#FFB020] transition-colors"
+              >
+                <Lock className="w-3 h-3 text-[#FFB020]" />
+                <span>Team Portal</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Main Nav */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Logo */}
+      {/* Main Navigation Bar - Expanded Width */}
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 h-20 flex items-center justify-between gap-4">
+        {/* Brand Logo */}
         <button
           onClick={() => navigate('/')}
-          className="flex items-center gap-3 group text-left focus:outline-none"
+          className="flex items-center gap-3.5 group text-left focus:outline-none shrink-0"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#22D3D8] via-[#0E1330] to-[#FFB020] p-[1.5px] shadow-lg shadow-[#22D3D8]/10 group-hover:scale-105 transition-transform">
+          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#22D3D8] via-[#0E1330] to-[#FFB020] p-[1.5px] shadow-lg shadow-[#22D3D8]/15 group-hover:shadow-[#22D3D8]/25 transition-all">
             <div className="w-full h-full bg-[#0E1330] rounded-[10px] flex items-center justify-center">
-              <span className="font-mono font-bold text-lg text-[#22D3D8]">T</span>
-              <span className="font-mono font-bold text-xs text-[#FFB020] ml-0.5">T</span>
+              <span className="font-mono font-extrabold text-xl text-[#22D3D8]">T</span>
+              <span className="font-mono font-extrabold text-xs text-[#FFB020] ml-0.5">T</span>
             </div>
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-heading font-bold text-xl tracking-tight text-white group-hover:text-[#22D3D8] transition-colors">
+              <span className="font-heading font-extrabold text-2xl tracking-tight text-white group-hover:text-[#22D3D8] transition-colors">
                 TERSAN
               </span>
-              <span className="font-mono font-bold text-sm tracking-widest text-[#22D3D8]">TECH</span>
+              <span className="font-mono font-bold text-sm tracking-widest text-[#22D3D8] bg-[#22D3D8]/10 px-1.5 py-0.5 rounded border border-[#22D3D8]/20">
+                TECH
+              </span>
             </div>
             <p className="text-[10px] font-mono tracking-widest uppercase text-slate-400">
               Enterprise Engineering
@@ -164,8 +171,8 @@ export const Header: React.FC = () => {
           </div>
         </button>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center gap-1 text-sm font-medium">
+        {/* Center Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-sm font-medium">
           {/* Services Dropdown */}
           <div className="relative" ref={servicesRef}>
             <button
@@ -174,21 +181,21 @@ export const Header: React.FC = () => {
                 setTalentOpen(false);
                 setCompanyOpen(false);
               }}
-              className={`px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-all text-xs font-semibold tracking-wide uppercase ${
+              className={`px-3 py-2 rounded-lg flex items-center gap-1.5 transition-all text-xs font-semibold tracking-wide uppercase ${
                 currentPath.startsWith('/services')
                   ? 'text-[#22D3D8] bg-[#141A3E]'
                   : 'text-slate-200 hover:text-white hover:bg-white/5'
               }`}
             >
               <span>Services</span>
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${servicesOpen ? 'rotate-180 text-[#22D3D8]' : ''}`} />
             </button>
 
             {servicesOpen && (
-              <div className="absolute top-full left-0 mt-2 w-[420px] bg-[#141A3E] border border-white/15 rounded-2xl shadow-2xl p-4 grid grid-cols-1 gap-2 z-50 backdrop-blur-xl">
+              <div className="absolute top-full left-0 mt-2 w-[440px] bg-[#141A3E] border border-white/15 rounded-2xl shadow-2xl p-4 grid grid-cols-1 gap-1.5 z-50 backdrop-blur-xl">
                 <div className="px-3 py-2 border-b border-white/10 flex items-center justify-between">
                   <span className="text-[11px] font-mono text-[#22D3D8] uppercase tracking-wider font-bold">
-                    Full-Spectrum Technical Practice
+                    Full-Spectrum Technical Practices
                   </span>
                   <button
                     onClick={() => {
@@ -197,7 +204,7 @@ export const Header: React.FC = () => {
                     }}
                     className="text-xs text-slate-300 hover:text-white flex items-center gap-1 font-mono"
                   >
-                    All Services <ArrowRight className="w-3 h-3 text-[#22D3D8]" />
+                    View All <ArrowRight className="w-3 h-3 text-[#22D3D8]" />
                   </button>
                 </div>
 
@@ -208,14 +215,14 @@ export const Header: React.FC = () => {
                   }}
                   className="text-left px-3 py-2.5 rounded-xl hover:bg-white/5 transition-all group flex items-start gap-3"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[#080B1D] border border-white/10 flex items-center justify-center shrink-0 mt-0.5 text-[#22D3D8]">
+                  <div className="w-9 h-9 rounded-lg bg-[#080B1D] border border-white/10 flex items-center justify-center shrink-0 mt-0.5 text-[#22D3D8]">
                     <Code2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-white font-medium group-hover:text-[#22D3D8] text-sm flex items-center gap-2">
-                      <span>Web &amp; Mobile Engineering</span>
+                    <div className="text-white font-medium group-hover:text-[#22D3D8] text-sm">
+                      Web &amp; Mobile Engineering
                     </div>
-                    <div className="text-xs text-slate-400 mt-0.5">Next.js, React, React Native apps &amp; high-throughput APIs</div>
+                    <div className="text-xs text-slate-400 mt-0.5">High-concurrency web platforms, mobile apps &amp; GraphQL APIs</div>
                   </div>
                 </button>
 
@@ -226,14 +233,14 @@ export const Header: React.FC = () => {
                   }}
                   className="text-left px-3 py-2.5 rounded-xl hover:bg-white/5 transition-all group flex items-start gap-3"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[#080B1D] border border-white/10 flex items-center justify-center shrink-0 mt-0.5 text-[#22D3D8]">
+                  <div className="w-9 h-9 rounded-lg bg-[#080B1D] border border-white/10 flex items-center justify-center shrink-0 mt-0.5 text-[#22D3D8]">
                     <Cloud className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-white font-medium group-hover:text-[#22D3D8] text-sm">
                       Cloud &amp; DevOps Infrastructure
                     </div>
-                    <div className="text-xs text-slate-400 mt-0.5">AWS/GCP/Azure migrations, Kubernetes, and GitOps CI/CD</div>
+                    <div className="text-xs text-slate-400 mt-0.5">AWS, GCP, Azure, Terraform IaC, Kubernetes &amp; zero-downtime CI/CD</div>
                   </div>
                 </button>
 
@@ -244,14 +251,14 @@ export const Header: React.FC = () => {
                   }}
                   className="text-left px-3 py-2.5 rounded-xl hover:bg-white/5 transition-all group flex items-start gap-3"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[#080B1D] border border-white/10 flex items-center justify-center shrink-0 mt-0.5 text-[#22D3D8]">
+                  <div className="w-9 h-9 rounded-lg bg-[#080B1D] border border-white/10 flex items-center justify-center shrink-0 mt-0.5 text-[#22D3D8]">
                     <Brain className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-white font-medium group-hover:text-[#22D3D8] text-sm">
                       Emerging Tech &amp; AI Systems
                     </div>
-                    <div className="text-xs text-slate-400 mt-0.5">Private VPC RAG pipelines, fine-tuned LLMs &amp; agentic workflows</div>
+                    <div className="text-xs text-slate-400 mt-0.5">Enterprise RAG, custom agentic workflows &amp; machine learning pipelines</div>
                   </div>
                 </button>
 
@@ -262,14 +269,14 @@ export const Header: React.FC = () => {
                   }}
                   className="text-left px-3 py-2.5 rounded-xl hover:bg-white/5 transition-all group flex items-start gap-3"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[#080B1D] border border-white/10 flex items-center justify-center shrink-0 mt-0.5 text-[#22D3D8]">
+                  <div className="w-9 h-9 rounded-lg bg-[#080B1D] border border-white/10 flex items-center justify-center shrink-0 mt-0.5 text-[#22D3D8]">
                     <Shield className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-white font-medium group-hover:text-[#22D3D8] text-sm">
-                      Cybersecurity &amp; Compliance
+                      Cybersecurity &amp; Audits
                     </div>
-                    <div className="text-xs text-slate-400 mt-0.5">SOC 2 / HIPAA compliance audits, penetration testing &amp; QA</div>
+                    <div className="text-xs text-slate-400 mt-0.5">SOC 2, HIPAA, penetration testing, zero-trust &amp; code auditing</div>
                   </div>
                 </button>
 
@@ -278,9 +285,9 @@ export const Header: React.FC = () => {
                     setServicesOpen(false);
                     navigate('/services/it-consulting-staff-augmentation');
                   }}
-                  className="text-left px-3 py-2.5 rounded-xl bg-[#FFB020]/10 border border-[#FFB020]/30 hover:bg-[#FFB020]/20 transition-all group flex items-start gap-3"
+                  className="text-left px-3 py-2.5 rounded-xl bg-[#FFB020]/10 border border-[#FFB020]/30 hover:bg-[#FFB020]/20 transition-all group flex items-start gap-3 mt-1"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[#080B1D] border border-[#FFB020]/40 flex items-center justify-center shrink-0 mt-0.5 text-[#FFB020]">
+                  <div className="w-9 h-9 rounded-lg bg-[#080B1D] border border-[#FFB020]/40 flex items-center justify-center shrink-0 mt-0.5 text-[#FFB020]">
                     <Users className="w-4 h-4" />
                   </div>
                   <div className="flex-1">
@@ -300,7 +307,7 @@ export const Header: React.FC = () => {
           {/* Industries */}
           <button
             onClick={() => navigate('/industries')}
-            className={`px-3.5 py-2 rounded-lg transition-all text-xs font-semibold tracking-wide uppercase ${
+            className={`px-3 py-2 rounded-lg transition-all text-xs font-semibold tracking-wide uppercase ${
               currentPath.startsWith('/industries')
                 ? 'text-[#22D3D8] bg-[#141A3E]'
                 : 'text-slate-200 hover:text-white hover:bg-white/5'
@@ -312,7 +319,7 @@ export const Header: React.FC = () => {
           {/* Case Studies */}
           <button
             onClick={() => navigate('/case-studies')}
-            className={`px-3.5 py-2 rounded-lg transition-all text-xs font-semibold tracking-wide uppercase ${
+            className={`px-3 py-2 rounded-lg transition-all text-xs font-semibold tracking-wide uppercase ${
               currentPath.startsWith('/case-studies')
                 ? 'text-[#22D3D8] bg-[#141A3E]'
                 : 'text-slate-200 hover:text-white hover:bg-white/5'
@@ -321,22 +328,22 @@ export const Header: React.FC = () => {
             Case Studies
           </button>
 
-          {/* Engagement Models & Pricing */}
+          {/* Pricing & Models */}
           <button
             onClick={() => navigate('/pricing')}
-            className={`px-3.5 py-2 rounded-lg transition-all text-xs font-semibold tracking-wide uppercase ${
+            className={`px-3 py-2 rounded-lg transition-all text-xs font-semibold tracking-wide uppercase ${
               currentPath.startsWith('/pricing')
                 ? 'text-[#22D3D8] bg-[#141A3E]'
                 : 'text-slate-200 hover:text-white hover:bg-white/5'
             }`}
           >
-            Pricing &amp; Models
+            Pricing
           </button>
 
-          {/* Our Process */}
+          {/* Process */}
           <button
             onClick={() => navigate('/how-we-deliver')}
-            className={`px-3.5 py-2 rounded-lg transition-all text-xs font-semibold tracking-wide uppercase ${
+            className={`px-3 py-2 rounded-lg transition-all text-xs font-semibold tracking-wide uppercase ${
               currentPath.startsWith('/how-we-deliver')
                 ? 'text-[#22D3D8] bg-[#141A3E]'
                 : 'text-slate-200 hover:text-white hover:bg-white/5'
@@ -345,7 +352,7 @@ export const Header: React.FC = () => {
             Process
           </button>
 
-          {/* Talent & Careers Dropdown (Amber Highlight) */}
+          {/* Talent & Careers Dropdown */}
           <div className="relative" ref={talentRef}>
             <button
               onClick={() => {
@@ -353,7 +360,7 @@ export const Header: React.FC = () => {
                 setServicesOpen(false);
                 setCompanyOpen(false);
               }}
-              className={`px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-all text-xs font-semibold tracking-wide uppercase border ${
+              className={`px-3 py-2 rounded-lg flex items-center gap-1.5 transition-all text-xs font-semibold tracking-wide uppercase border ${
                 isTalentActive
                   ? 'text-[#FFB020] bg-[#FFB020]/15 border-[#FFB020]/50 shadow-md shadow-[#FFB020]/10'
                   : 'text-amber-200/90 border-amber-500/30 hover:bg-[#FFB020]/10 hover:border-[#FFB020]/50'
@@ -361,11 +368,11 @@ export const Header: React.FC = () => {
             >
               <Users className="w-3.5 h-3.5 text-[#FFB020]" />
               <span>Talent</span>
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${talentOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${talentOpen ? 'rotate-180 text-[#FFB020]' : ''}`} />
             </button>
 
             {talentOpen && (
-              <div className="absolute top-full right-0 mt-2 w-80 bg-[#141A3E] border border-[#FFB020]/35 rounded-2xl shadow-2xl p-3.5 grid grid-cols-1 gap-1.5 z-50 backdrop-blur-xl">
+              <div className="absolute top-full left-0 mt-2 w-80 bg-[#141A3E] border border-[#FFB020]/35 rounded-2xl shadow-2xl p-3.5 grid grid-cols-1 gap-1.5 z-50 backdrop-blur-xl">
                 <div className="px-3 py-1.5 border-b border-white/10 text-xs font-mono text-[#FFB020] uppercase tracking-wider font-bold">
                   Work With Tersan Tech
                 </div>
@@ -385,7 +392,7 @@ export const Header: React.FC = () => {
                         5 Openings
                       </span>
                     </div>
-                    <div className="text-xs text-slate-400 mt-0.5">Salaried engineering &amp; principal architect roles</div>
+                    <div className="text-xs text-slate-400 mt-0.5">Salaried engineering &amp; principal roles</div>
                   </div>
                 </button>
 
@@ -404,7 +411,7 @@ export const Header: React.FC = () => {
                         APPLY
                       </span>
                     </div>
-                    <div className="text-xs text-slate-300 mt-0.5">Vetted project matches &amp; transparent client rates</div>
+                    <div className="text-xs text-slate-300 mt-0.5">Vetted project matches &amp; top client rates</div>
                   </div>
                 </button>
 
@@ -438,7 +445,7 @@ export const Header: React.FC = () => {
             )}
           </div>
 
-          {/* More Company Links */}
+          {/* More Company Links Dropdown */}
           <div className="relative" ref={companyRef}>
             <button
               onClick={() => {
@@ -524,9 +531,9 @@ export const Header: React.FC = () => {
           </div>
         </nav>
 
-        {/* Right Header Actions: Theme Toggle & Dual CTAs */}
-        <div className="hidden xl:flex items-center gap-3">
-          {/* Dark / Light Mode Toggle */}
+        {/* Right Header Action Cluster: Seamlessly responsive */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Dark / Light Mode Toggle Button */}
           <button
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
@@ -534,82 +541,62 @@ export const Header: React.FC = () => {
             className="p-2.5 rounded-xl border border-white/10 hover:border-[#22D3D8]/40 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all flex items-center justify-center focus:outline-none"
           >
             {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-[#FFB020]" />
+              <Sun className="w-4 h-4 text-[#FFB020] transition-transform hover:rotate-45" />
             ) : (
-              <Moon className="w-4 h-4 text-[#0E1330]" />
+              <Moon className="w-4 h-4 text-[#0E1330] transition-transform" />
             )}
           </button>
 
+          {/* Secondary CTA: Join Talent Network (visible on md+) */}
           <button
             onClick={() => navigate('/join-freelancer-network')}
-            className="px-3.5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl border border-[#FFB020] text-[#FFB020] hover:bg-[#FFB020] hover:text-black transition-all"
+            className="hidden md:inline-flex px-3.5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl border border-[#FFB020] text-[#FFB020] hover:bg-[#FFB020] hover:text-black transition-all whitespace-nowrap"
           >
-            Join Talent Network
+            Join Talent
           </button>
 
+          {/* Primary CTA: Book Consultation (visible on sm+) */}
           <button
             onClick={() => navigate('/book-a-call')}
-            className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-xl bg-[#22D3D8] text-[#0E1330] hover:bg-[#1AB8BC] shadow-lg shadow-[#22D3D8]/20 transition-all flex items-center gap-1.5"
+            className="hidden sm:inline-flex px-4 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-[#22D3D8] text-[#0E1330] hover:bg-[#1AB8BC] shadow-lg shadow-[#22D3D8]/20 transition-all items-center gap-1.5 whitespace-nowrap"
           >
             <span>Book Consultation</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
-        </div>
 
-        {/* Mobile menu and toggle trigger */}
-        <div className="flex items-center gap-2 lg:hidden">
-          {/* Mobile Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            className="p-2 rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:text-white"
-          >
-            {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-[#FFB020]" />
-            ) : (
-              <Moon className="w-4 h-4 text-[#0E1330]" />
-            )}
-          </button>
-
-          <button
-            onClick={() => navigate('/book-a-call')}
-            className="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#22D3D8] text-[#0E1330]"
-          >
-            Consult
-          </button>
-
+          {/* Mobile Hamburger Button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 text-slate-300 hover:text-white focus:outline-none rounded-lg"
-            aria-label="Toggle Menu"
+            className="lg:hidden p-2 text-slate-300 hover:text-white focus:outline-none rounded-xl border border-white/10 bg-white/5"
+            aria-label="Toggle Navigation Menu"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? <X className="w-6 h-6 text-[#22D3D8]" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-[#080B1D] border-b border-white/10 px-5 py-6 max-h-[85vh] overflow-y-auto space-y-5">
+        <div className="lg:hidden bg-[#080B1D] border-b border-white/10 px-5 py-6 max-h-[85vh] overflow-y-auto space-y-5 animate-in fade-in duration-200">
           {/* Dual CTAs in mobile */}
           <div className="grid grid-cols-2 gap-3 pb-4 border-b border-white/10">
             <button
               onClick={() => navigate('/book-a-call')}
-              className="w-full py-2.5 text-xs font-bold text-center bg-[#22D3D8] text-[#0E1330] rounded-xl flex items-center justify-center gap-1.5"
+              className="w-full py-3 text-xs font-bold text-center bg-[#22D3D8] text-[#0E1330] rounded-xl flex items-center justify-center gap-1.5 shadow-md shadow-[#22D3D8]/15"
             >
               <span>Book Call</span>
-              <ArrowRight className="w-3 h-3" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => navigate('/join-freelancer-network')}
-              className="w-full py-2.5 text-xs font-bold text-center bg-[#FFB020] text-black rounded-xl"
+              className="w-full py-3 text-xs font-bold text-center bg-[#FFB020] text-black rounded-xl shadow-md shadow-[#FFB020]/15"
             >
-              Join Talent Network
+              Join Talent
             </button>
           </div>
 
           <div className="space-y-1">
-            <div className="text-xs font-mono text-slate-500 uppercase tracking-wider px-2 py-1">
+            <div className="text-xs font-mono text-[#22D3D8] uppercase tracking-wider px-2 py-1 font-bold">
               Client Solutions
             </div>
             <button
@@ -653,7 +640,7 @@ export const Header: React.FC = () => {
           </div>
 
           <div className="space-y-1 pt-3 border-t border-white/10">
-            <div className="text-xs font-mono text-[#FFB020] uppercase tracking-wider px-2 py-1">
+            <div className="text-xs font-mono text-[#FFB020] uppercase tracking-wider px-2 py-1 font-bold">
               Talent Ecosystem
             </div>
             <button
@@ -686,7 +673,7 @@ export const Header: React.FC = () => {
           </div>
 
           <div className="space-y-1 pt-3 border-t border-white/10">
-            <div className="text-xs font-mono text-slate-500 uppercase tracking-wider px-2 py-1">Company</div>
+            <div className="text-xs font-mono text-slate-500 uppercase tracking-wider px-2 py-1 font-bold">Company</div>
             <button
               onClick={() => navigate('/about')}
               className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:text-white rounded-lg"
@@ -726,11 +713,13 @@ export const Header: React.FC = () => {
           </div>
 
           <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-            <button onClick={() => navigate('/portal/client')} className="hover:text-white">
-              Client Portal
+            <button onClick={() => navigate('/portal/client')} className="hover:text-white flex items-center gap-1">
+              <Lock className="w-3 h-3 text-[#22D3D8]" />
+              <span>Client Portal</span>
             </button>
-            <button onClick={() => navigate('/portal/team')} className="text-[#FFB020] hover:underline">
-              Team Portal
+            <button onClick={() => navigate('/portal/team')} className="text-[#FFB020] hover:underline flex items-center gap-1">
+              <Lock className="w-3 h-3 text-[#FFB020]" />
+              <span>Team Portal</span>
             </button>
           </div>
         </div>
