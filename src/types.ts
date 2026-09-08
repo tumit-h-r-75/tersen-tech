@@ -51,6 +51,7 @@ export interface CaseStudy {
   results: string[];
   teamComposition: string; // e.g. "Lead Cloud Architect (In-house) + 2 Kubernetes Specialists (Freelance Network)"
   duration: string;
+  imageUrl?: string;
 }
 
 export interface JobPosting {
@@ -83,6 +84,7 @@ export interface TalentProfile {
   bio: string;
   status: 'Available Now' | 'In Project' | 'Accepting Bookings';
   avatarSeed: string;
+  avatarUrl?: string;
 }
 
 export interface BlogPost {

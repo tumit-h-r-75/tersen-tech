@@ -90,9 +90,9 @@ export const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-[#0E1330]/95 backdrop-blur-md border-b border-white/10 transition-colors duration-200">
-      {/* Top Utility Ribbon - Expanded full container width */}
+      {/* Top Utility Ribbon - Full Width Fluid Canvas */}
       <div className="hidden lg:block border-b border-white/5 bg-[#080B1D]/80">
-        <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-2 flex items-center justify-between text-xs text-slate-400">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-2 flex items-center justify-between text-xs text-slate-400">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#22D3D8] animate-pulse"></span>
@@ -143,8 +143,8 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Navigation Bar - Expanded Width */}
-      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 h-20 flex items-center justify-between gap-4">
+      {/* Main Navigation Bar - Full Width Fluid Precision Layout */}
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 h-20 flex items-center justify-between gap-4 xl:gap-8">
         {/* Brand Logo */}
         <button
           onClick={() => navigate('/')}
@@ -538,12 +538,16 @@ export const Header: React.FC = () => {
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            className="p-2.5 rounded-xl border border-white/10 hover:border-[#22D3D8]/40 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all flex items-center justify-center focus:outline-none"
+            className={`p-2.5 rounded-xl transition-all flex items-center justify-center focus:outline-none border shadow-sm ${
+              theme === 'dark'
+                ? 'border-white/15 bg-white/5 hover:bg-white/10 text-[#FFB020] hover:border-[#FFB020]/50 hover:shadow-md'
+                : 'border-slate-300 bg-white hover:bg-slate-100 text-slate-800 hover:border-slate-400'
+            }`}
           >
             {theme === 'dark' ? (
               <Sun className="w-4 h-4 text-[#FFB020] transition-transform hover:rotate-45" />
             ) : (
-              <Moon className="w-4 h-4 text-[#0E1330] transition-transform" />
+              <Moon className="w-4 h-4 text-[#0E1330] transition-transform hover:-rotate-12" />
             )}
           </button>
 

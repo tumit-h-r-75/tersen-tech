@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '../context/NavigationContext';
+import engineeringTeamPodImg from '../assets/images/engineering_team_pod_1788885153209.jpg';
+import techCommandCenterImg from '../assets/images/tech_command_center_1788885108454.jpg';
+import cloudAiMeshImg from '../assets/images/cloud_ai_mesh_1788885136538.jpg';
+import { VideoBriefingModal } from '../components/VideoBriefingModal';
 import {
   Building,
   ShieldCheck,
@@ -9,10 +13,16 @@ import {
   ArrowRight,
   CheckCircle2,
   Cpu,
+  Play,
+  Terminal,
+  Clock,
+  Sparkles,
+  Layers,
 } from 'lucide-react';
 
 export const AboutPage: React.FC = () => {
   const { navigate } = useNavigation();
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const leaders = [
     {
@@ -54,21 +64,96 @@ export const AboutPage: React.FC = () => {
     },
   ];
 
+  const workplaceImages = [
+    {
+      title: 'Engineering Command & NOC Hub',
+      subtitle: 'Austin, TX • 24/7 Cluster Reliability Monitoring',
+      img: techCommandCenterImg,
+    },
+    {
+      title: 'Applied AI & RAG Evaluation Pod',
+      subtitle: 'San Francisco, CA • Air-gapped Model Validation',
+      img: cloudAiMeshImg,
+    },
+    {
+      title: 'Agile Systems Design War Room',
+      subtitle: 'London, UK • Principal Architect Sprints',
+      img: engineeringTeamPodImg,
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#0E1330] text-white py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0E1330] text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header Hero */}
-        <div className="text-center mb-16">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono text-[#22D3D8] bg-[#22D3D8]/10 border border-[#22D3D8]/30 mb-4">
-            <Building className="w-3.5 h-3.5" />
-            About Tersan Tech
-          </span>
-          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6">
-            Building the Next Generation of Enterprise Technology &amp; Talent
-          </h1>
-          <p className="text-slate-400 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
-            Founded by veteran enterprise architects, Tersan Tech bridges the gap between high-overhead IT consultancies and unreliable freelance boards through an architect-led hybrid delivery model.
-          </p>
+        {/* Header Hero Split */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
+          <div className="lg:col-span-7 space-y-6">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono text-[#22D3D8] bg-[#22D3D8]/10 border border-[#22D3D8]/30">
+              <Building className="w-3.5 h-3.5" />
+              About Tersan Tech • Founded 2019
+            </span>
+
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+              Building the Next Generation of Enterprise Technology &amp; Talent
+            </h1>
+
+            <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-sans">
+              Founded by veteran enterprise architects, Tersan Tech bridges the gap between high-overhead IT consultancies and unpredictable talent boards through our architect-led hybrid delivery model.
+            </p>
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              <button
+                onClick={() => setIsVideoModalOpen(true)}
+                className="px-6 py-3.5 rounded-xl bg-[#22D3D8] text-[#0E1330] font-bold text-xs uppercase tracking-wider hover:bg-[#1AB8BC] shadow-lg shadow-[#22D3D8]/20 flex items-center gap-2"
+              >
+                <Play className="w-4 h-4 fill-current" />
+                <span>Watch Story &amp; Delivery Model</span>
+              </button>
+
+              <button
+                onClick={() => navigate('/book-a-call')}
+                className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs uppercase tracking-wider border border-white/20 flex items-center gap-2"
+              >
+                <span>Book Leadership Call</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Right Hero Visual Card */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative rounded-2xl overflow-hidden border border-white/20 bg-[#141A3E] shadow-2xl group cursor-pointer"
+                 onClick={() => setIsVideoModalOpen(true)}>
+              <div className="aspect-[4/3] w-full overflow-hidden">
+                <img
+                  src={engineeringTeamPodImg}
+                  alt="Tersan Tech Engineering Pod"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+
+              {/* Overlay vignette */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E1330] via-black/30 to-transparent pointer-events-none"></div>
+
+              {/* Play Badge */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-14 h-14 rounded-full bg-[#22D3D8] text-[#0E1330] flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                  <Play className="w-6 h-6 fill-current ml-1" />
+                </div>
+              </div>
+
+              {/* Bottom Tag */}
+              <div className="absolute bottom-4 left-4 right-4 bg-[#080B1D]/80 backdrop-blur-md p-3 rounded-xl border border-white/15">
+                <div className="text-[10px] font-mono text-[#22D3D8] uppercase tracking-wider">
+                  Inside Tersan Tech
+                </div>
+                <div className="text-xs font-semibold text-white">
+                  Cross-functional architectural war rooms with 24/7 follow-the-sun sprints
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Stats Strip */}
@@ -96,6 +181,47 @@ export const AboutPage: React.FC = () => {
             <div className="text-xs text-slate-400 mt-1 uppercase font-mono tracking-wider">
               Average Client Rating
             </div>
+          </div>
+        </div>
+
+        {/* Engineering Lab & Infrastructure Facilities (Image Section) */}
+        <div className="mb-20">
+          <div className="text-center mb-10">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#22D3D8] mb-2 block">
+              Physical &amp; Cloud Infrastructure
+            </span>
+            <h2 className="font-heading text-3xl font-bold text-white tracking-tight">
+              Where Mission-Critical Engineering Happens
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 mt-2 max-w-xl mx-auto">
+              Our teams work across certified security labs, distributed cloud NOC centers, and dedicated client architecture pods.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {workplaceImages.map((wp, idx) => (
+              <div
+                key={idx}
+                className="group rounded-2xl bg-[#141A3E] border border-white/10 hover:border-[#22D3D8]/40 overflow-hidden shadow-xl transition-all"
+              >
+                <div className="aspect-[16/10] w-full overflow-hidden bg-[#080B1D]">
+                  <img
+                    src={wp.img}
+                    alt={wp.title}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-heading font-bold text-base text-white group-hover:text-[#22D3D8] transition-colors">
+                    {wp.title}
+                  </h3>
+                  <p className="text-xs font-mono text-slate-400 mt-1">
+                    {wp.subtitle}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -216,6 +342,11 @@ export const AboutPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <VideoBriefingModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+      />
     </div>
   );
 };

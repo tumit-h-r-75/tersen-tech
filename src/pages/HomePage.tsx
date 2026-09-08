@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { TrustMarquee } from '../components/TrustMarquee';
+import { VideoBriefingModal } from '../components/VideoBriefingModal';
+import { EngineeringLabGallery } from '../components/EngineeringLabGallery';
 import {
   SERVICES_DATA,
   CASE_STUDIES_DATA,
   TESTIMONIALS_DATA,
   INDUSTRIES_DATA,
+  TALENT_PROFILES_DATA,
 } from '../data/mockData';
+import techCommandCenterImg from '../assets/images/tech_command_center_1788885108454.jpg';
+import cloudAiMeshImg from '../assets/images/cloud_ai_mesh_1788885136538.jpg';
+import engineeringTeamPodImg from '../assets/images/engineering_team_pod_1788885153209.jpg';
 import {
   ArrowRight,
   ShieldCheck,
@@ -30,10 +36,18 @@ import {
   Quote,
   Clock,
   DollarSign,
+  Play,
+  Terminal,
+  Activity,
+  Maximize2,
 } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   const { navigate } = useNavigation();
+
+  // Interactive video modal state
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [heroVisualTab, setHeroVisualTab] = useState<'command' | 'ai' | 'pod'>('command');
 
   // Interactive Quick Estimator Teaser state
   const [teaserScope, setTeaserScope] = useState('Full-Stack Web App');
@@ -47,17 +61,23 @@ export const HomePage: React.FC = () => {
     return '$25,000 – $50,000';
   };
 
+  const getHeroImage = () => {
+    if (heroVisualTab === 'ai') return cloudAiMeshImg;
+    if (heroVisualTab === 'pod') return engineeringTeamPodImg;
+    return techCommandCenterImg;
+  };
+
   return (
     <div className="min-h-screen bg-[#0E1330] text-white">
       {/* 1. HERO SECTION */}
-      <section className="relative pt-12 pb-20 sm:pt-16 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative pt-10 pb-20 sm:pt-14 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Subtle geometric gradient backdrop */}
         <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#22D3D8]/30 via-transparent to-transparent"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
+          <div className="text-center max-w-4xl mx-auto mb-12">
             {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium text-[#22D3D8] bg-[#22D3D8]/10 border border-[#22D3D8]/30 mb-8 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium text-[#22D3D8] bg-[#22D3D8]/10 border border-[#22D3D8]/30 mb-6 backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-[#22D3D8] animate-pulse"></span>
               Full-Spectrum Enterprise Engineering &amp; Vetted Talent
             </div>
@@ -71,54 +91,177 @@ export const HomePage: React.FC = () => {
             </h1>
 
             {/* Subhead for Three Audiences */}
-            <p className="text-slate-300 text-base sm:text-xl leading-relaxed mb-10 max-w-3xl mx-auto font-sans">
+            <p className="text-slate-300 text-base sm:text-xl leading-relaxed mb-8 max-w-3xl mx-auto font-sans">
               Tersan Tech powers high-growth startups and global enterprises across cloud infrastructure, AI systems, mobile, and security—backed by an in-house architectural core and a vetted top-3% talent pipeline.
             </p>
 
-            {/* Dual CTAs (Cyan for Client, Amber for Talent) */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+            {/* Primary Action Buttons + 90s Video Briefing Launcher */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-12">
               <button
                 onClick={() => navigate('/book-a-call')}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#22D3D8] text-[#0E1330] font-bold text-xs uppercase tracking-wider hover:bg-[#1AB8BC] shadow-xl shadow-[#22D3D8]/20 transition-all flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#22D3D8] text-[#0E1330] font-bold text-xs uppercase tracking-wider hover:bg-[#1AB8BC] shadow-xl shadow-[#22D3D8]/20 transition-all flex items-center justify-center gap-2 group"
               >
                 <span>Book Technical Consultation</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
               <button
+                onClick={() => setIsVideoModalOpen(true)}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#141A3E] hover:bg-[#1A2250] text-white font-semibold text-xs tracking-wider border border-[#22D3D8]/40 hover:border-[#22D3D8] transition-all flex items-center justify-center gap-2.5 shadow-lg group"
+              >
+                <span className="w-5 h-5 rounded-full bg-[#22D3D8] text-[#0E1330] flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Play className="w-2.5 h-2.5 fill-current ml-0.5" />
+                </span>
+                <span>Watch 90s Overview</span>
+                <span className="text-[10px] font-mono text-[#22D3D8] px-1.5 py-0.5 rounded bg-[#22D3D8]/15 border border-[#22D3D8]/30">
+                  HD
+                </span>
+              </button>
+
+              <button
                 onClick={() => navigate('/estimate')}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs uppercase tracking-wider border border-white/20 transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white font-medium text-xs uppercase tracking-wider border border-white/15 transition-all flex items-center justify-center gap-2"
               >
                 <Calculator className="w-4 h-4 text-[#22D3D8]" />
-                <span>Calculate Project Cost</span>
+                <span>Estimate Cost</span>
               </button>
 
               <button
                 onClick={() => navigate('/join-freelancer-network')}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#FFB020] text-black font-bold text-xs uppercase tracking-wider hover:bg-[#E59B15] shadow-xl shadow-[#FFB020]/20 transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#FFB020] text-black font-bold text-xs uppercase tracking-wider hover:bg-[#E59B15] shadow-xl shadow-[#FFB020]/20 transition-all flex items-center justify-center gap-2"
               >
                 <Users className="w-4 h-4" />
                 <span>Join Talent Network</span>
               </button>
             </div>
+          </div>
 
-            {/* Trust Badges */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
-              <div className="p-4 rounded-xl bg-[#141A3E]/60 border border-white/5 backdrop-blur-sm">
-                <div className="font-heading font-extrabold text-2xl text-white">140+</div>
-                <div className="text-[11px] font-mono text-slate-400">Enterprise Builds Shipped</div>
+          {/* INTERACTIVE ARCHITECTURAL COMMAND CENTER FRAME */}
+          <div className="max-w-5xl mx-auto bg-[#141A3E] border border-white/15 hover:border-[#22D3D8]/50 rounded-2xl p-2 sm:p-3 shadow-2xl transition-all relative group">
+            {/* View Switcher Top Bar */}
+            <div className="flex flex-wrap items-center justify-between px-3 py-2 border-b border-white/10 bg-[#080B1D]/80 rounded-t-xl gap-3">
+              {/* Telemetry Status Dots */}
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-red-500/80"></span>
+                <span className="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                <span className="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                <span className="text-xs font-mono text-slate-400 ml-2 hidden sm:inline">
+                  tersan-tech://live-architecture/telemetry-v4
+                </span>
               </div>
-              <div className="p-4 rounded-xl bg-[#141A3E]/60 border border-white/5 backdrop-blur-sm">
-                <div className="font-heading font-extrabold text-2xl text-[#22D3D8]">99.8%</div>
-                <div className="text-[11px] font-mono text-slate-400">SLA Milestone Compliance</div>
+
+              {/* View Switcher Tabs */}
+              <div className="flex items-center gap-1 text-[11px] font-mono">
+                <button
+                  onClick={() => setHeroVisualTab('command')}
+                  className={`px-3 py-1 rounded-lg transition-all ${
+                    heroVisualTab === 'command'
+                      ? 'bg-[#22D3D8] text-[#0E1330] font-bold shadow-md'
+                      : 'text-slate-400 hover:text-white bg-white/5'
+                  }`}
+                >
+                  01 // Command Center
+                </button>
+                <button
+                  onClick={() => setHeroVisualTab('ai')}
+                  className={`px-3 py-1 rounded-lg transition-all ${
+                    heroVisualTab === 'ai'
+                      ? 'bg-[#22D3D8] text-[#0E1330] font-bold shadow-md'
+                      : 'text-slate-400 hover:text-white bg-white/5'
+                  }`}
+                >
+                  02 // Cloud AI Mesh
+                </button>
+                <button
+                  onClick={() => setHeroVisualTab('pod')}
+                  className={`px-3 py-1 rounded-lg transition-all ${
+                    heroVisualTab === 'pod'
+                      ? 'bg-[#22D3D8] text-[#0E1330] font-bold shadow-md'
+                      : 'text-slate-400 hover:text-white bg-white/5'
+                  }`}
+                >
+                  03 // Engineering Pod
+                </button>
               </div>
-              <div className="p-4 rounded-xl bg-[#141A3E]/60 border border-white/5 backdrop-blur-sm">
-                <div className="font-heading font-extrabold text-2xl text-[#FFB020]">120+</div>
-                <div className="text-[11px] font-mono text-slate-400">Vetted Senior Specialists</div>
+            </div>
+
+            {/* Visual Canvas Display */}
+            <div className="relative aspect-[16/9] sm:aspect-[21/10] w-full rounded-b-xl overflow-hidden bg-[#080B1D] cursor-pointer"
+                 onClick={() => setIsVideoModalOpen(true)}>
+              <img
+                src={getHeroImage()}
+                alt="Tersan Tech Live Architecture & Engineering View"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
+              />
+
+              {/* Cinematic Vignette Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E1330] via-black/30 to-black/20 pointer-events-none"></div>
+
+              {/* Top Live Feeds Badge */}
+              <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
+                <div className="inline-flex items-center gap-2 bg-[#080B1D]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs font-mono text-white">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>
+                    {heroVisualTab === 'command' && 'PRIMARY CLUSTER • 140+ ENTERPRISE DEPLOYMENTS'}
+                    {heroVisualTab === 'ai' && 'AIR-GAPPED LLM ENGINE • ZERO DATA LEAKAGE'}
+                    {heroVisualTab === 'pod' && 'CROSS-FUNCTIONAL POD • TOP 3% SENIOR TALENT'}
+                  </span>
+                </div>
+
+                <div className="hidden sm:inline-flex items-center gap-1.5 bg-[#080B1D]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs font-mono text-[#22D3D8]">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>SOC 2 &amp; HIPAA VERIFIED</span>
+                </div>
               </div>
-              <div className="p-4 rounded-xl bg-[#141A3E]/60 border border-white/5 backdrop-blur-sm">
-                <div className="font-heading font-extrabold text-2xl text-emerald-400">100%</div>
-                <div className="text-[11px] font-mono text-slate-400">Client IP Ownership</div>
+
+              {/* Center Interactive Video Trigger Button */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative flex items-center justify-center">
+                  <div className="absolute w-20 h-20 rounded-full bg-[#22D3D8]/30 animate-ping"></div>
+                  <div className="w-16 h-16 rounded-full bg-[#22D3D8] text-[#0E1330] flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform relative z-10">
+                    <Play className="w-7 h-7 fill-current ml-1" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom HUD Bar */}
+              <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 pointer-events-none">
+                <div className="bg-[#080B1D]/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/10">
+                  <div className="text-[10px] font-mono text-[#22D3D8] uppercase">
+                    Architectural Briefing // Click to launch 90-sec tec-spec
+                  </div>
+                  <div className="text-xs font-semibold text-white">
+                    {heroVisualTab === 'command' && 'Mission-Critical Cloud Infrastructure & Multi-Region Failover'}
+                    {heroVisualTab === 'ai' && 'Enterprise RAG Pipelines & High-Throughput Model Inference'}
+                    {heroVisualTab === 'pod' && 'Agile Sprint Velocity with Dedicated Lead Architect Oversight'}
+                  </div>
+                </div>
+
+                <div className="inline-flex items-center gap-2 bg-[#22D3D8]/15 border border-[#22D3D8]/40 px-3 py-2 rounded-xl text-xs font-mono text-[#22D3D8] backdrop-blur-md self-start sm:self-auto">
+                  <Activity className="w-3.5 h-3.5 animate-pulse" />
+                  <span>Interactive Walkthrough</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Four Real-Time Metrics Badges Below Canvas */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-3 pt-2 border-t border-white/10 text-left">
+              <div className="p-3 rounded-xl bg-[#080B1D]/60 border border-white/5">
+                <div className="font-heading font-extrabold text-xl text-white">140+</div>
+                <div className="text-[10px] font-mono text-slate-400">Enterprise Builds Shipped</div>
+              </div>
+              <div className="p-3 rounded-xl bg-[#080B1D]/60 border border-white/5">
+                <div className="font-heading font-extrabold text-xl text-[#22D3D8]">99.8%</div>
+                <div className="text-[10px] font-mono text-slate-400">SLA Milestone Compliance</div>
+              </div>
+              <div className="p-3 rounded-xl bg-[#080B1D]/60 border border-white/5">
+                <div className="font-heading font-extrabold text-xl text-[#FFB020]">&lt;3%</div>
+                <div className="text-[10px] font-mono text-slate-400">Vetted Talent Acceptance</div>
+              </div>
+              <div className="p-3 rounded-xl bg-[#080B1D]/60 border border-white/5">
+                <div className="font-heading font-extrabold text-xl text-emerald-400">100%</div>
+                <div className="text-[10px] font-mono text-slate-400">Day-1 Client IP Ownership</div>
               </div>
             </div>
           </div>
@@ -310,6 +453,9 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* DEDICATED ENGINEERING LAB & VISUAL FACILITY GALLERY */}
+      <EngineeringLabGallery />
+
       {/* 4. "WHY TERSAN TECH" / HYBRID MODEL COMPARISON */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0B0F26] border-y border-white/5">
         <div className="max-w-7xl mx-auto">
@@ -409,36 +555,61 @@ export const HomePage: React.FC = () => {
               <div
                 key={cs.slug}
                 onClick={() => navigate(`/case-studies/${cs.slug}`)}
-                className="bg-[#141A3E] border border-white/10 hover:border-[#22D3D8]/40 rounded-2xl p-6 sm:p-8 cursor-pointer transition-all flex flex-col justify-between group shadow-xl"
+                className="bg-[#141A3E] border border-white/10 hover:border-[#22D3D8]/40 rounded-2xl overflow-hidden cursor-pointer transition-all flex flex-col justify-between group shadow-xl hover:-translate-y-1 duration-300"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-mono font-bold bg-[#22D3D8]/10 text-[#22D3D8] px-2 py-0.5 rounded">
-                      {cs.industry}
-                    </span>
-                    <span className="text-xs font-mono text-slate-400">{cs.client}</span>
-                  </div>
-
-                  <h3 className="font-heading font-bold text-xl text-white group-hover:text-[#22D3D8] transition-colors mb-3 leading-snug">
-                    {cs.title}
-                  </h3>
-
-                  <p className="text-xs text-slate-300 leading-relaxed mb-6 line-clamp-3">
-                    {cs.challenge}
-                  </p>
-
-                  {/* Top Metric Callout */}
-                  <div className="p-4 rounded-xl bg-[#080B1D] border border-white/5 mb-6">
-                    <div className="font-heading font-extrabold text-2xl text-emerald-400">
-                      {cs.heroMetric}
+                {/* Case Study Image Header */}
+                {cs.imageUrl && (
+                  <div className="relative aspect-[16/9] w-full bg-[#080B1D] overflow-hidden">
+                    <img
+                      src={cs.imageUrl}
+                      alt={cs.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#141A3E] via-transparent to-black/40 pointer-events-none"></div>
+                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold bg-[#080B1D]/80 text-[#22D3D8] px-2 py-0.5 rounded border border-[#22D3D8]/30 backdrop-blur-md">
+                        {cs.industry}
+                      </span>
+                      <span className="text-[11px] font-mono text-white bg-[#080B1D]/80 px-2 py-0.5 rounded border border-white/15 backdrop-blur-md">
+                        {cs.client}
+                      </span>
                     </div>
-                    <div className="text-[11px] text-slate-400 mt-0.5">{cs.heroMetricLabel}</div>
                   </div>
-                </div>
+                )}
 
-                <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-[#22D3D8] font-semibold">
-                  <span>Read Full Teardown</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                  <div>
+                    {!cs.imageUrl && (
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-mono font-bold bg-[#22D3D8]/10 text-[#22D3D8] px-2 py-0.5 rounded">
+                          {cs.industry}
+                        </span>
+                        <span className="text-xs font-mono text-slate-400">{cs.client}</span>
+                      </div>
+                    )}
+
+                    <h3 className="font-heading font-bold text-lg text-white group-hover:text-[#22D3D8] transition-colors mb-2.5 leading-snug">
+                      {cs.title}
+                    </h3>
+
+                    <p className="text-xs text-slate-300 leading-relaxed mb-5 line-clamp-2">
+                      {cs.challenge}
+                    </p>
+
+                    {/* Top Metric Callout */}
+                    <div className="p-3.5 rounded-xl bg-[#080B1D] border border-white/5 mb-5">
+                      <div className="font-heading font-extrabold text-2xl text-emerald-400">
+                        {cs.heroMetric}
+                      </div>
+                      <div className="text-[11px] text-slate-400 mt-0.5">{cs.heroMetricLabel}</div>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-[#22D3D8] font-semibold">
+                    <span>Read Full Teardown</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
               </div>
             ))}
@@ -481,50 +652,115 @@ export const HomePage: React.FC = () => {
       {/* 7. VETTED TALENT PIPELINE SPOTLIGHT */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-br from-[#141A3E] to-[#080B1D] border border-[#FFB020]/30 rounded-3xl p-8 sm:p-14 shadow-2xl relative overflow-hidden">
-            <div className="max-w-3xl space-y-6">
-              <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#FFB020]/20 text-[#FFB020] border border-[#FFB020]/40">
-                Talent Operations
-              </span>
+          <div className="bg-gradient-to-br from-[#141A3E] to-[#080B1D] border border-[#FFB020]/30 rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left Column: Narrative & Metrics */}
+              <div className="lg:col-span-7 space-y-6">
+                <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#FFB020]/20 text-[#FFB020] border border-[#FFB020]/40">
+                  Talent Operations &amp; Staff Augmentation
+                </span>
 
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-                Vetted Senior Technologists. <br />
-                Ready to Embed in 48 Hours.
-              </h2>
+                <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
+                  Vetted Senior Technologists. <br />
+                  Ready to Embed in 48 Hours.
+                </h2>
 
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                We accept fewer than 3% of engineer applicants. Every specialist completes technical architecture challenges, code quality benchmarks, and live systems debugging with our Lead Architects before touching client code.
-              </p>
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                  We accept fewer than 3% of engineer applicants. Every specialist completes rigorous technical architecture challenges, code quality benchmarks, and live systems debugging with our Lead Architects before touching client code.
+                </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-                <div className="bg-[#0E1330]/80 border border-white/10 p-4 rounded-xl">
-                  <div className="font-mono text-xl font-bold text-[#FFB020]">&lt;3%</div>
-                  <div className="text-xs text-slate-400 mt-1">Acceptance Rate</div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                  <div className="bg-[#0E1330]/80 border border-white/10 p-4 rounded-xl">
+                    <div className="font-mono text-2xl font-bold text-[#FFB020]">&lt;3%</div>
+                    <div className="text-xs text-slate-400 mt-1">Acceptance Rate</div>
+                  </div>
+                  <div className="bg-[#0E1330]/80 border border-white/10 p-4 rounded-xl">
+                    <div className="font-mono text-2xl font-bold text-white">4-Stage</div>
+                    <div className="text-xs text-slate-400 mt-1">Screening Rubric</div>
+                  </div>
+                  <div className="bg-[#0E1330]/80 border border-white/10 p-4 rounded-xl">
+                    <div className="font-mono text-2xl font-bold text-emerald-400">14-Day</div>
+                    <div className="text-xs text-slate-400 mt-1">Risk-Free Guarantee</div>
+                  </div>
                 </div>
-                <div className="bg-[#0E1330]/80 border border-white/10 p-4 rounded-xl">
-                  <div className="font-mono text-xl font-bold text-white">4-Stage</div>
-                  <div className="text-xs text-slate-400 mt-1">Screening Rubric</div>
-                </div>
-                <div className="bg-[#0E1330]/80 border border-white/10 p-4 rounded-xl">
-                  <div className="font-mono text-xl font-bold text-emerald-400">14-Day</div>
-                  <div className="text-xs text-slate-400 mt-1">Risk-Free Guarantee</div>
+
+                <div className="pt-3 flex flex-wrap gap-4">
+                  <button
+                    onClick={() => navigate('/talent')}
+                    className="px-6 py-3.5 rounded-xl bg-[#FFB020] text-black font-bold text-xs uppercase tracking-wider hover:bg-[#E59B15] shadow-lg shadow-[#FFB020]/20 flex items-center gap-2"
+                  >
+                    <span>Browse Specialist Directory</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => navigate('/join-freelancer-network')}
+                    className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs uppercase tracking-wider border border-white/20"
+                  >
+                    Apply to Join Network
+                  </button>
                 </div>
               </div>
 
-              <div className="pt-4 flex flex-wrap gap-4">
-                <button
-                  onClick={() => navigate('/talent')}
-                  className="px-6 py-3.5 rounded-xl bg-[#FFB020] text-black font-bold text-xs uppercase tracking-wider hover:bg-[#E59B15] shadow-lg shadow-[#FFB020]/20 flex items-center gap-2"
-                >
-                  <span>Browse Specialist Directory</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => navigate('/join-freelancer-network')}
-                  className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs uppercase tracking-wider border border-white/20"
-                >
-                  Apply to Join Network
-                </button>
+              {/* Right Column: Vetted Talent Cards Preview */}
+              <div className="lg:col-span-5 space-y-3.5">
+                <div className="flex items-center justify-between text-xs font-mono text-slate-400 px-1">
+                  <span>DEPLOYABLE SPECIALISTS NOW</span>
+                  <span className="text-[#FFB020] cursor-pointer hover:underline" onClick={() => navigate('/talent')}>
+                    View all 120+ →
+                  </span>
+                </div>
+
+                {TALENT_PROFILES_DATA.slice(0, 3).map((prof) => (
+                  <div
+                    key={prof.id}
+                    onClick={() => navigate('/talent')}
+                    className="p-4 rounded-2xl bg-[#080B1D]/90 border border-white/10 hover:border-[#FFB020]/50 transition-all cursor-pointer flex items-center justify-between gap-4 group shadow-lg"
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#FFB020]/40 shrink-0">
+                        {prof.avatarUrl ? (
+                          <img
+                            src={prof.avatarUrl}
+                            alt={prof.name}
+                            referrerPolicy="no-referrer"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-[#141A3E] flex items-center justify-center font-bold text-white">
+                            {prof.name[0]}
+                          </div>
+                        )}
+                        <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#080B1D]"></span>
+                      </div>
+
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-heading font-bold text-sm text-white truncate group-hover:text-[#FFB020] transition-colors">
+                            {prof.name}
+                          </h4>
+                          <span className="text-[10px] font-mono text-amber-300 flex items-center gap-0.5">
+                            ★ {prof.rating}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-300 truncate">{prof.title}</p>
+                        <div className="flex items-center gap-1.5 mt-1">
+                          {prof.topSkills.slice(0, 2).map((s, i) => (
+                            <span key={i} className="text-[9px] font-mono bg-white/5 text-slate-400 px-1.5 py-0.5 rounded">
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="text-right shrink-0">
+                      <div className="text-xs font-mono font-bold text-white">{prof.hourlyRate}</div>
+                      <span className="text-[10px] font-mono text-emerald-400 block mt-0.5">
+                        {prof.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -700,6 +936,12 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* 90-SECOND VIDEO BRIEFING MODAL */}
+      <VideoBriefingModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+      />
     </div>
   );
 };

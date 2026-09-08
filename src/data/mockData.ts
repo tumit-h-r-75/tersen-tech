@@ -917,6 +917,7 @@ export const CASE_STUDIES_DATA: CaseStudy[] = [
     ],
     teamComposition: 'Lead Cloud Architect (In-House) + 1 SRE (In-House) + 2 AWS Security Network Specialists (Freelance Network)',
     duration: '12 weeks',
+    imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
   },
   {
     slug: 'cortex-ai-underwriting',
@@ -940,6 +941,7 @@ export const CASE_STUDIES_DATA: CaseStudy[] = [
     ],
     teamComposition: 'Senior AI Engineer (In-House) + 1 Data Scientist (In-House) + 1 Financial Document Parsing Specialist (Freelance Network)',
     duration: '10 weeks',
+    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
   },
   {
     slug: 'strata-logistics-portal',
@@ -963,6 +965,7 @@ export const CASE_STUDIES_DATA: CaseStudy[] = [
     ],
     teamComposition: 'Principal Full-Stack Lead (In-House) + 2 Frontend Engineers (In-House) + 1 Mapbox Geospatial Specialist (Freelance Network)',
     duration: '14 weeks',
+    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
   },
   {
     slug: 'omnihealth-ehr-sync',
@@ -986,6 +989,7 @@ export const CASE_STUDIES_DATA: CaseStudy[] = [
     ],
     teamComposition: 'Solutions Architect (In-House) + 1 Full-Stack Engineer (In-House) + 1 Health Informatics & HL7 Specialist (Freelance Network)',
     duration: '16 weeks',
+    imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
   },
   {
     slug: 'velox-luxury-commerce',
@@ -1009,6 +1013,7 @@ export const CASE_STUDIES_DATA: CaseStudy[] = [
     ],
     teamComposition: 'Technical Director (In-House) + 1 Senior Frontend Developer (In-House) + 1 Shopify Plus Architect (Freelance Network)',
     duration: '8 weeks',
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
   },
   {
     slug: 'apex-capital-web',
@@ -1032,6 +1037,7 @@ export const CASE_STUDIES_DATA: CaseStudy[] = [
     ],
     teamComposition: 'Design Director (In-House) + 1 Senior UI Designer (In-House) + 1 Creative Technologist (Freelance Network)',
     duration: '6 weeks',
+    imageUrl: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80',
   },
   {
     slug: 'realtor-flow-mobile',
@@ -1055,6 +1061,7 @@ export const CASE_STUDIES_DATA: CaseStudy[] = [
     ],
     teamComposition: 'Mobile Lead (In-House) + 1 React Native Developer (In-House) + 1 PostGIS Spatial Specialist (Freelance Network)',
     duration: '11 weeks',
+    imageUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80',
   },
   {
     slug: 'mediview-clinician-mobile',
@@ -1078,6 +1085,7 @@ export const CASE_STUDIES_DATA: CaseStudy[] = [
     ],
     teamComposition: 'Lead Systems Architect (In-House) + 1 PWA Specialist (In-House) + 1 Medical UX Designer (Freelance Network)',
     duration: '10 weeks',
+    imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -1392,6 +1400,7 @@ export const TALENT_PROFILES_DATA: TalentProfile[] = [
     bio: 'Former CERN infrastructure engineer specializing in high-availability Kubernetes clusters, multi-region failover, and zero-downtime database cutovers for institutional clients.',
     status: 'Available Now',
     avatarSeed: 'elena',
+    avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
   },
   {
     id: 'talent-02',
@@ -1408,6 +1417,7 @@ export const TALENT_PROFILES_DATA: TalentProfile[] = [
     bio: 'Pioneered private enterprise RAG deployments for Fortune 500 legal and healthcare organizations with strict privacy guarantees and sub-second semantic retrieval.',
     status: 'Accepting Bookings',
     avatarSeed: 'marcus',
+    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
   },
   {
     id: 'talent-03',
@@ -1424,6 +1434,7 @@ export const TALENT_PROFILES_DATA: TalentProfile[] = [
     bio: 'Specialist in 120Hz fluid mobile interfaces and offline-first data sync engines. Delivered 6 apps featured on the Apple App Store home page.',
     status: 'Available Now',
     avatarSeed: 'soraya',
+    avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
   },
   {
     id: 'talent-04',
@@ -1440,6 +1451,7 @@ export const TALENT_PROFILES_DATA: TalentProfile[] = [
     bio: 'Certified ethical hacker (OSCP, CISSP) conducting deep adversarial audits, cloud IAM hardening, and pre-IPO security readiness for high-stakes FinTech firms.',
     status: 'In Project',
     avatarSeed: 'julian',
+    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
   },
   {
     id: 'talent-05',
@@ -1456,6 +1468,7 @@ export const TALENT_PROFILES_DATA: TalentProfile[] = [
     bio: 'Passionate about typography, cognitive ergonomics, and design token automation that bridges the gap between Figma components and production React libraries.',
     status: 'Available Now',
     avatarSeed: 'amara',
+    avatarUrl: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80',
   },
   {
     id: 'talent-06',
@@ -1472,6 +1485,7 @@ export const TALENT_PROFILES_DATA: TalentProfile[] = [
     bio: 'Transforms fragmented corporate sales and billing operations into clean, bi-directional automated workflows that eliminate manual double-entry.',
     status: 'Available Now',
     avatarSeed: 'david',
+    avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
   },
   {
     id: 'talent-07',
@@ -1488,6 +1502,7 @@ export const TALENT_PROFILES_DATA: TalentProfile[] = [
     bio: 'Engineered programmatic SEO and edge caching architectures generating over 10M monthly organic search visits for high-growth venture-backed SaaS platforms.',
     status: 'Accepting Bookings',
     avatarSeed: 'meiling',
+    avatarUrl: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=400&q=80',
   },
   {
     id: 'talent-08',
@@ -1504,6 +1519,7 @@ export const TALENT_PROFILES_DATA: TalentProfile[] = [
     bio: 'Author of audited smart contracts securing over $200M in decentralized total value locked. Deep mathematical background in formal protocol verification.',
     status: 'Available Now',
     avatarSeed: 'tariq',
+    avatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80',
   },
 ];
 
