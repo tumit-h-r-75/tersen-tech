@@ -151,9 +151,9 @@ export const Header: React.FC = () => {
           className="flex items-center gap-3.5 group text-left focus:outline-none shrink-0"
         >
           <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#22D3D8] via-[#0E1330] to-[#FFB020] p-[1.5px] shadow-lg shadow-[#22D3D8]/15 group-hover:shadow-[#22D3D8]/25 transition-all">
-            <div className="w-full h-full bg-[#0E1330] rounded-[10px] flex items-center justify-center">
-              <span className="font-mono font-extrabold text-xl text-[#22D3D8]">T</span>
-              <span className="font-mono font-extrabold text-xs text-[#FFB020] ml-0.5">T</span>
+            <div className="brand-logo-inner w-full h-full bg-[#0E1330] rounded-[10px] flex items-center justify-center">
+              <span className="brand-logo-letter font-mono font-extrabold text-xl text-[#22D3D8]">T</span>
+              <span className="brand-logo-letter font-mono font-extrabold text-xs text-[#FFB020] ml-0.5">T</span>
             </div>
           </div>
           <div>
