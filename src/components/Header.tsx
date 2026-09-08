@@ -585,14 +585,14 @@ export const Header: React.FC = () => {
           {/* Dual CTAs in mobile */}
           <div className="grid grid-cols-2 gap-3 pb-4 border-b border-white/10">
             <button
-              onClick={() => navigate('/book-a-call')}
+              onClick={() => { navigate('/book-a-call'); setMobileOpen(false); }}
               className="w-full py-3 text-xs font-bold text-center bg-[#22D3D8] text-[#0E1330] rounded-xl flex items-center justify-center gap-1.5 shadow-md shadow-[#22D3D8]/15"
             >
               <span>Book Call</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => navigate('/join-freelancer-network')}
+              onClick={() => { navigate('/join-freelancer-network'); setMobileOpen(false); }}
               className="w-full py-3 text-xs font-bold text-center bg-[#FFB020] text-black rounded-xl shadow-md shadow-[#FFB020]/15"
             >
               Join Talent
@@ -604,38 +604,38 @@ export const Header: React.FC = () => {
               Client Solutions
             </div>
             <button
-              onClick={() => navigate('/services')}
+              onClick={() => { navigate('/services'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/5 rounded-lg flex items-center justify-between"
             >
               <span>All Engineering Practices</span>
               <ArrowRight className="w-4 h-4 text-[#22D3D8]" />
             </button>
             <button
-              onClick={() => navigate('/industries')}
+              onClick={() => { navigate('/industries'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/5 rounded-lg"
             >
               Regulated Industries
             </button>
             <button
-              onClick={() => navigate('/case-studies')}
+              onClick={() => { navigate('/case-studies'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/5 rounded-lg"
             >
               Case Studies &amp; Outcomes
             </button>
             <button
-              onClick={() => navigate('/pricing')}
+              onClick={() => { navigate('/pricing'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/5 rounded-lg"
             >
               Pricing &amp; Engagement Models
             </button>
             <button
-              onClick={() => navigate('/how-we-deliver')}
+              onClick={() => { navigate('/how-we-deliver'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/5 rounded-lg"
             >
               Our Delivery Process
             </button>
             <button
-              onClick={() => navigate('/estimate')}
+              onClick={() => { navigate('/estimate'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-[#22D3D8] hover:bg-white/5 rounded-lg font-medium flex items-center gap-2"
             >
               <Calculator className="w-4 h-4" />
@@ -648,13 +648,13 @@ export const Header: React.FC = () => {
               Talent Ecosystem
             </div>
             <button
-              onClick={() => navigate('/careers')}
+              onClick={() => { navigate('/careers'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/5 rounded-lg"
             >
               Full-Time Careers
             </button>
             <button
-              onClick={() => navigate('/join-freelancer-network')}
+              onClick={() => { navigate('/join-freelancer-network'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-[#FFB020] font-medium hover:bg-white/5 rounded-lg flex items-center justify-between"
             >
               <span>Join Freelancer Network</span>
@@ -663,13 +663,13 @@ export const Header: React.FC = () => {
               </span>
             </button>
             <button
-              onClick={() => navigate('/talent')}
+              onClick={() => { navigate('/talent'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-white hover:bg-white/5 rounded-lg"
             >
               Talent Showcase Profiles
             </button>
             <button
-              onClick={() => navigate('/application-status')}
+              onClick={() => { navigate('/application-status'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:bg-white/5 rounded-lg"
             >
               Application Status Tracker
@@ -679,37 +679,37 @@ export const Header: React.FC = () => {
           <div className="space-y-1 pt-3 border-t border-white/10">
             <div className="text-xs font-mono text-slate-500 uppercase tracking-wider px-2 py-1 font-bold">Company</div>
             <button
-              onClick={() => navigate('/about')}
+              onClick={() => { navigate('/about'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:text-white rounded-lg"
             >
               About Tersan Tech
             </button>
             <button
-              onClick={() => navigate('/success-stories')}
+              onClick={() => { navigate('/success-stories'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:text-white rounded-lg"
             >
               Client Success Stories
             </button>
             <button
-              onClick={() => navigate('/partners')}
+              onClick={() => { navigate('/partners'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:text-white rounded-lg"
             >
               Partners &amp; Ecosystem
             </button>
             <button
-              onClick={() => navigate('/resources')}
+              onClick={() => { navigate('/resources'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:text-white rounded-lg"
             >
               Engineering Journal
             </button>
             <button
-              onClick={() => navigate('/faqs')}
+              onClick={() => { navigate('/faqs'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:text-white rounded-lg"
             >
               FAQ
             </button>
             <button
-              onClick={() => navigate('/contact')}
+              onClick={() => { navigate('/contact'); setMobileOpen(false); }}
               className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:text-white rounded-lg"
             >
               Contact Us
@@ -717,11 +717,11 @@ export const Header: React.FC = () => {
           </div>
 
           <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-            <button onClick={() => navigate('/portal/client')} className="hover:text-white flex items-center gap-1">
+            <button onClick={() => { navigate('/portal/client'); setMobileOpen(false); }} className="hover:text-white flex items-center gap-1">
               <Lock className="w-3 h-3 text-[#22D3D8]" />
               <span>Client Portal</span>
             </button>
-            <button onClick={() => navigate('/portal/team')} className="text-[#FFB020] hover:underline flex items-center gap-1">
+            <button onClick={() => { navigate('/portal/team'); setMobileOpen(false); }} className="text-[#FFB020] hover:underline flex items-center gap-1">
               <Lock className="w-3 h-3 text-[#FFB020]" />
               <span>Team Portal</span>
             </button>
